@@ -97,16 +97,14 @@ void Ab01aAudioProcessor::changeProgramName (int index, const juce::String& newN
 void Ab01aAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
 	synth.setCurrentPlaybackSampleRate(sampleRate);
-	//juce::dsp::ProcessSpec spec;
-	//spec.sampleRate = sampleRate;
-	//spec.maximumBlockSize = samplesPerBlock;
-	//spec.numChannels = getTotalNumOutputChannels();
 
-	//osc.prepare(spec);
- //   osc.setFrequency(220.0f);
-
- //   gain.prepare(spec);
-	//gain.setGainLinear(0.1f);
+    for (int i = 0; i < synth.getNumVoices(); i++)
+    {
+        if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i)))
+        {
+			voice->prepareToPlay(sampleRate, samplesPerBlock, getTotalNumOutputChannels());
+        }
+    }
 }
 
 void Ab01aAudioProcessor::releaseResources()
