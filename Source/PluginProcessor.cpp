@@ -22,6 +22,9 @@ Ab01aAudioProcessor::Ab01aAudioProcessor()
                        )
 #endif
 {
+	synth.addSound(new SynthSound());
+	synth.addVoice(new SynthVoice());
+
 }
 
 Ab01aAudioProcessor::~Ab01aAudioProcessor()
@@ -93,16 +96,17 @@ void Ab01aAudioProcessor::changeProgramName (int index, const juce::String& newN
 //==============================================================================
 void Ab01aAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-	juce::dsp::ProcessSpec spec;
-	spec.sampleRate = sampleRate;
-	spec.maximumBlockSize = samplesPerBlock;
-	spec.numChannels = getTotalNumOutputChannels();
+	synth.setCurrentPlaybackSampleRate(sampleRate);
+	//juce::dsp::ProcessSpec spec;
+	//spec.sampleRate = sampleRate;
+	//spec.maximumBlockSize = samplesPerBlock;
+	//spec.numChannels = getTotalNumOutputChannels();
 
-	osc.prepare(spec);
-    osc.setFrequency(220.0f);
+	//osc.prepare(spec);
+ //   osc.setFrequency(220.0f);
 
-    gain.prepare(spec);
-	gain.setGainLinear(0.1f);
+ //   gain.prepare(spec);
+	//gain.setGainLinear(0.1f);
 }
 
 void Ab01aAudioProcessor::releaseResources()
@@ -146,11 +150,16 @@ void Ab01aAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-	juce::dsp::AudioBlock<float> block(buffer);
-	
-    
-    osc.process(juce::dsp::ProcessContextReplacing<float>(block));
-	gain.process(juce::dsp::ProcessContextReplacing<float>(block));
+    for (int i = 0; i < synth.getNumVoices(); i++)
+    {
+		if (auto voice = dynamic_cast<juce::SynthesiserVoice*>(synth.getVoice(i)))
+		{
+			// oscilator controls, adsr, lfo etc from value tree state
+			//voice->getOscillator().setFrequency(220.0f);
+		}
+    }
+
+    synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 }
 
 //==============================================================================
@@ -184,3 +193,5 @@ juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new Ab01aAudioProcessor();
 }
+
+// later on we will add value tree state to save and load the synth parameters
