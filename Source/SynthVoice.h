@@ -25,9 +25,14 @@ public:
 	void pitchWheelMoved(int newPitchWheelValue) override;
 
 private:
+	juce::AudioBuffer<float> synthBuffer;
+
 	juce::ADSR adsr;
 	juce::ADSR::Parameters adsrParams;
+	
 	juce::dsp::Oscillator<float> osc{ [](float x) { return std::sin(x); } };
+	
 	juce::dsp::Gain<float> gain;
+	
 	bool isPrepared{ false };
 };

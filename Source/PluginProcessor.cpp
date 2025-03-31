@@ -19,7 +19,7 @@ Ab01aAudioProcessor::Ab01aAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )
+	 ), apvts(*this, nullptr, "PARAMETERS", createParameterLayout())
 #endif
 {
 	synth.addSound(new SynthSound());
@@ -192,4 +192,21 @@ juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
     return new Ab01aAudioProcessor();
 }
 
-// later on we will add value tree state to save and load the synth parameters
+juce::AudioProcessorValueTreeState::ParameterLayout Ab01aAudioProcessor::createParameterLayout()
+{
+    // combo box to switch oscilators
+    // adsr params
+
+	std::vector<std::unique_ptr<juce::RangedAudioParameter>> params;
+
+    // OSC selector
+	params.push_back(std::make_unique<juce::AudioParameterChoice>("OSC", "Oscillator", juce::StringArray{ "Sine", "Saw", "Square" }, 0));
+	
+    // ADSR
+	params.push_back(std::make_unique<juce::AudioParameterFloat>("ATTACK", "Attack", 0.1f, 1.0f, 0.1f));
+	params.push_back(std::make_unique<juce::AudioParameterFloat>("DECAY", "Decay", 0.1f, 1.0f, 0.1f));
+	params.push_back(std::make_unique<juce::AudioParameterFloat>("SUSTAIN", "Sustain", 0.0f, 1.0f, 1.0f));
+	params.push_back(std::make_unique<juce::AudioParameterFloat>("RELEASE", "Release", 0.1f, 3.0f, 0.4f));
+
+    return { params.begin(), params.end() };
+}
