@@ -23,6 +23,8 @@ public:
 	void prepareToPlay(double sampleRate, int samplesPerBlock, int outputChannels);
 	void renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples) override;
 	void pitchWheelMoved(int newPitchWheelValue) override;
+	void updateADSR(const float attack, const float decay, const float sustain, const float release);
+
 
 private:
 	juce::AudioBuffer<float> synthBuffer;
