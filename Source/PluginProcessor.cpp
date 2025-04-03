@@ -150,10 +150,17 @@ void Ab01aAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::
 
     for (int i = 0; i < synth.getNumVoices(); i++)
     {
-		if (auto voice = dynamic_cast<juce::SynthesiserVoice*>(synth.getVoice(i)))
+		if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i)))
 		{
 			// oscilator controls, adsr, lfo etc from value tree state
-			//voice->getOscillator().setFrequency(220.0f);
+            // ADSR
+			auto& attack = *apvts.getRawParameterValue("ATTACK");
+			auto& decay = *apvts.getRawParameterValue("DECAY");
+			auto& sustain = *apvts.getRawParameterValue("SUSTAIN");
+			auto& release = *apvts.getRawParameterValue("RELEASE");
+			voice->updateADSR(attack.load(), decay.load(), sustain.load(), release.load());
+
+            //voice->getOscillator().setFrequency(220.0f);
 		}
     }
 

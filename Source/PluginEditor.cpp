@@ -27,6 +27,11 @@ Ab01aAudioProcessorEditor::Ab01aAudioProcessorEditor (Ab01aAudioProcessor& p)
 	// OSC selector
 	oscSelectorAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(
         audioProcessor.apvts, "OSC", oscSelector);
+
+	setSliderParams(attackSlider);
+	setSliderParams(decaySlider);
+	setSliderParams(sustainSlider);
+	setSliderParams(releaseSlider);
 }
 
 Ab01aAudioProcessorEditor::~Ab01aAudioProcessorEditor()
@@ -37,15 +42,28 @@ Ab01aAudioProcessorEditor::~Ab01aAudioProcessorEditor()
 void Ab01aAudioProcessorEditor::paint (juce::Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
-
-    g.setColour (juce::Colours::white);
-    g.setFont (juce::FontOptions (15.0f));
-    g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
+    g.fillAll (juce::Colours::darkgrey);
 }
 
 void Ab01aAudioProcessorEditor::resized()
 {
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
+	const auto bounds = getLocalBounds().reduced(10);
+	const auto padding = 10;
+    const auto sliderWidth = getWidth() / 4 - padding;
+    const auto sliderHeight = getHeight() / 4 - padding;
+    const auto sliderStartX = 0;
+    const auto sliderStartY = bounds.getHeight() / 2 - (sliderHeight / 2);
+
+	attackSlider.setBounds(sliderStartX, sliderStartY, sliderWidth, sliderHeight);
+    decaySlider.setBounds(attackSlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
+    sustainSlider.setBounds(decaySlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
+    releaseSlider.setBounds(sustainSlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
+
+}
+
+void Ab01aAudioProcessorEditor::setSliderParams(juce::Slider& slider)
+{
+    slider.setSliderStyle(juce::Slider::LinearVertical);
+    slider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
+    addAndMakeVisible(slider);
 }
