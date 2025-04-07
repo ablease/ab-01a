@@ -153,12 +153,12 @@ void Ab01aAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::
 		if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i)))
 		{
 			// oscilator controls, adsr, lfo etc from value tree state
-            // ADSR
+			// ADSR Can we do this so that it only updates when the value changes?
 			auto& attack = *apvts.getRawParameterValue("ATTACK");
 			auto& decay = *apvts.getRawParameterValue("DECAY");
 			auto& sustain = *apvts.getRawParameterValue("SUSTAIN");
 			auto& release = *apvts.getRawParameterValue("RELEASE");
-			voice->updateADSR(attack.load(), decay.load(), sustain.load(), release.load());
+			voice->update(attack.load(), decay.load(), sustain.load(), release.load());
 
             //voice->getOscillator().setFrequency(220.0f);
 		}

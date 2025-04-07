@@ -16,6 +16,15 @@
       <FILE id="yJxPS1" name="SynthSound.h" compile="0" resource="0" file="Source/SynthSound.h"/>
       <FILE id="AwOq6C" name="SynthVoice.cpp" compile="1" resource="0" file="Source/SynthVoice.cpp"/>
       <FILE id="FihuPS" name="SynthVoice.h" compile="0" resource="0" file="Source/SynthVoice.h"/>
+      <GROUP id="{4297DF97-2675-ED47-DFAE-50BA41B805BC}" name="Data">
+        <FILE id="gYU41d" name="ADSRData.cpp" compile="1" resource="0" file="Source/Data/ADSRData.cpp"/>
+        <FILE id="LtAEYo" name="ADSRData.h" compile="0" resource="0" file="Source/Data/ADSRData.h"/>
+      </GROUP>
+      <GROUP id="{B169CFB8-986E-3749-599D-D2BBCF64636E}" name="UI">
+        <FILE id="vDomti" name="ADSRComponent.cpp" compile="1" resource="0"
+              file="Source/UI/ADSRComponent.cpp"/>
+        <FILE id="zHJjim" name="ADSRComponent.h" compile="0" resource="0" file="Source/UI/ADSRComponent.h"/>
+      </GROUP>
     </GROUP>
   </MAINGROUP>
   <MODULES>
