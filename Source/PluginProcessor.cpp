@@ -158,9 +158,11 @@ void Ab01aAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::
 			auto& decay = *apvts.getRawParameterValue("DECAY");
 			auto& sustain = *apvts.getRawParameterValue("SUSTAIN");
 			auto& release = *apvts.getRawParameterValue("RELEASE");
+
+			auto& oscWaveChoice = *apvts.getRawParameterValue("WAVETYPE");
 			voice->update(attack.load(), decay.load(), sustain.load(), release.load());
 
-            //voice->getOscillator().setFrequency(220.0f);
+			voice->getOscillator().setWaveType(oscWaveChoice);
 		}
     }
 
@@ -208,12 +210,14 @@ juce::AudioProcessorValueTreeState::ParameterLayout Ab01aAudioProcessor::createP
 
     // OSC selector
 	params.push_back(std::make_unique<juce::AudioParameterChoice>("OSC", "Oscillator", juce::StringArray{ "Sine", "Saw", "Square" }, 0));
-	
+    params.push_back(std::make_unique<juce::AudioParameterChoice>("WAVETYPE", "Osc Wave Type", juce::StringArray{ "Sine", "Saw", "Square" }, 0));
+
     // ADSR
 	params.push_back(std::make_unique<juce::AudioParameterFloat>("ATTACK", "Attack", 0.1f, 1.0f, 0.1f));
 	params.push_back(std::make_unique<juce::AudioParameterFloat>("DECAY", "Decay", 0.1f, 1.0f, 0.1f));
 	params.push_back(std::make_unique<juce::AudioParameterFloat>("SUSTAIN", "Sustain", 0.0f, 1.0f, 1.0f));
 	params.push_back(std::make_unique<juce::AudioParameterFloat>("RELEASE", "Release", 0.1f, 3.0f, 0.4f));
 
+	
     return { params.begin(), params.end() };
 }
