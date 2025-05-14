@@ -11,7 +11,7 @@
 
 //==============================================================================
 Ab01aAudioProcessorEditor::Ab01aAudioProcessorEditor (Ab01aAudioProcessor& p)
-    : AudioProcessorEditor (&p), audioProcessor (p), adsr(audioProcessor.apvts)
+	: AudioProcessorEditor(&p), audioProcessor(p), adsr(audioProcessor.apvts), osc(audioProcessor.apvts, "WAVETYPE")
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
@@ -20,9 +20,7 @@ Ab01aAudioProcessorEditor::Ab01aAudioProcessorEditor (Ab01aAudioProcessor& p)
     // ADSR
 	addAndMakeVisible(adsr);
 
-	// OSC selector
-	oscSelectorAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(
-        audioProcessor.apvts, "OSC", oscSelector);
+	addAndMakeVisible(osc);
 }
 
 Ab01aAudioProcessorEditor::~Ab01aAudioProcessorEditor()
@@ -40,4 +38,6 @@ void Ab01aAudioProcessorEditor::resized()
 {
 	// set ADSR component bounds
     adsr.setBounds(getWidth()/2, 0, getWidth()/2, getHeight());
+
+    osc.setBounds(10, 10, 100, 30);
 }

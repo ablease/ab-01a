@@ -11,6 +11,7 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 #include "UI/ADSRComponent.h"
+#include "UI/OscComponent.h"
 
 //==============================================================================
 /**
@@ -26,10 +27,9 @@ public:
     void resized() override;
 
 private:
-	std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> oscSelectorAttachment;
     Ab01aAudioProcessor& audioProcessor;
     ADSRComponent adsr;
-    juce::ComboBox oscSelector;
+	OscComponent osc;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Ab01aAudioProcessorEditor)
 };

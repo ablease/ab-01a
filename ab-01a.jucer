@@ -23,6 +23,9 @@
         <FILE id="xBFbpF" name="OscData.h" compile="0" resource="0" file="Source/Data/OscData.h"/>
       </GROUP>
       <GROUP id="{B169CFB8-986E-3749-599D-D2BBCF64636E}" name="UI">
+        <FILE id="DlvHxp" name="OscComponent.cpp" compile="1" resource="0"
+              file="Source/UI/OscComponent.cpp"/>
+        <FILE id="wsNrs5" name="OscComponent.h" compile="0" resource="0" file="Source/UI/OscComponent.h"/>
         <FILE id="vDomti" name="ADSRComponent.cpp" compile="1" resource="0"
               file="Source/UI/ADSRComponent.cpp"/>
         <FILE id="zHJjim" name="ADSRComponent.h" compile="0" resource="0" file="Source/UI/ADSRComponent.h"/>
