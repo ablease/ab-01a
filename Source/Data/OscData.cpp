@@ -9,6 +9,11 @@
 */
 
 #include "OscData.h"
+
+void OscData::prepareToPlay(juce::dsp::ProcessSpec& spec)
+{
+	prepare(spec);
+}
 //>("WAVETYPE", "Osc Wave Type", juce::StringArray{ "Sine", "Saw", "Square" }, 0));
 void OscData::setWaveType(const int choice)
 {
@@ -29,4 +34,15 @@ void OscData::setWaveType(const int choice)
 		jassertfalse; // Invalid choice for Wave Type
 		break;
 	}
+}
+
+void OscData::setWaveFrequency(const int midiNoteNumber)
+{
+	// Set the frequency of the oscillator
+	setFrequency(juce::MidiMessage::getMidiNoteInHertz (midiNoteNumber));
+}
+
+void OscData::getNextAudioBlock(juce::dsp::AudioBlock<float>& audioBlock)
+{
+	process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
 }
