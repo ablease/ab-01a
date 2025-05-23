@@ -11,7 +11,11 @@
 
 //==============================================================================
 Ab01aAudioProcessorEditor::Ab01aAudioProcessorEditor (Ab01aAudioProcessor& p)
-	: AudioProcessorEditor(&p), audioProcessor(p), adsr(audioProcessor.apvts), osc(audioProcessor.apvts, "WAVETYPE")
+	: AudioProcessorEditor(&p),
+    audioProcessor(p),
+    adsr("ENV", audioProcessor.apvts, "ATTACK", "DECAY", "SUSTAIN", "RELEASE"),
+    osc(audioProcessor.apvts,
+    "WAVETYPE")
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
