@@ -21,7 +21,13 @@ ADSRComponent::ADSRComponent(juce::AudioProcessorValueTreeState& apvts)
     decayAttachment = std::make_unique<SliderAttachment>(apvts, "DECAY", decaySlider);
     sustainAttachment = std::make_unique<SliderAttachment>(apvts, "SUSTAIN", sustainSlider);
     releaseAttachment = std::make_unique<SliderAttachment>(apvts, "RELEASE", releaseSlider);
+	
+    ADSRTitle.setText("ENV", juce::dontSendNotification);
+	ADSRTitle.setFont(juce::Font(15.0f, juce::Font::bold));
+	ADSRTitle.setJustificationType(juce::Justification::centred);
+	addAndMakeVisible(ADSRTitle);
 
+    // adsr sliders
     setSliderParams(attackSlider);
     setSliderParams(decaySlider);
     setSliderParams(sustainSlider);
@@ -39,12 +45,17 @@ void ADSRComponent::paint (juce::Graphics& g)
 
 void ADSRComponent::resized()
 {
-    const auto bounds = getLocalBounds().reduced(10);
+    auto bounds = getLocalBounds().reduced(10);
     const auto padding = 10;
+    const auto titleHeight = 20;
     const auto sliderWidth = getWidth() / 4 - padding;
-    const auto sliderHeight = getHeight();
+    const auto sliderHeight = getHeight() - titleHeight - padding;
     const auto sliderStartX = 0;
-    const auto sliderStartY = 0;
+    const auto sliderStartY = 0 + titleHeight + padding;
+	
+
+    // title label
+	ADSRTitle.setBounds(bounds.getX(), bounds.getY(), bounds.getWidth(), titleHeight);
 
     attackSlider.setBounds(sliderStartX, sliderStartY, sliderWidth, sliderHeight);
     decaySlider.setBounds(attackSlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);

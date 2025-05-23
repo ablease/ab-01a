@@ -37,7 +37,7 @@ void Ab01aAudioProcessorEditor::paint (juce::Graphics& g)
 void Ab01aAudioProcessorEditor::resized()
 {
 	// set ADSR component bounds
-    adsr.setBounds(getWidth()/2, 0, getWidth()/2, getHeight());
+    adsr.setBounds(getWidth()/2, 0, getWidth()/2, getHeight()-50);
 
     osc.setBounds(10, 10, 100, 30);
 }

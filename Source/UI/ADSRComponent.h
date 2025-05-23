@@ -23,7 +23,7 @@ public:
 
 private:
     void setSliderParams(juce::Slider& slider);
-
+    juce::Label ADSRTitle;
     juce::Slider attackSlider;
     juce::Slider decaySlider;
     juce::Slider sustainSlider;
