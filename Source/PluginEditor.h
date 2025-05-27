@@ -12,6 +12,7 @@
 #include "PluginProcessor.h"
 #include "UI/ADSRComponent.h"
 #include "UI/OscComponent.h"
+#include "UI/SourceMixerComponent.h"
 
 //==============================================================================
 /**
@@ -30,6 +31,7 @@ private:
     Ab01aAudioProcessor& audioProcessor;
     ADSRComponent adsr;
 	OscComponent osc;
+    SourceMixerComponent sourceMixer;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Ab01aAudioProcessorEditor)
 };

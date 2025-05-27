@@ -11,7 +11,6 @@
 #include <JuceHeader.h>
 #include "ADSRComponent.h"
 
-//==============================================================================
 ADSRComponent::ADSRComponent(
     juce::String name,
     juce::AudioProcessorValueTreeState& apvts,
@@ -70,7 +69,7 @@ void ADSRComponent::resized()
 
     releaseSlider.setBounds(sustainSlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
 	releaseLabel.setBounds(releaseSlider.getX(), labelStart, sliderWidth, labelHeight);
-}
+}   
 
 using Attachment = juce::AudioProcessorValueTreeState::SliderAttachment;
 

@@ -14,17 +14,19 @@ Ab01aAudioProcessorEditor::Ab01aAudioProcessorEditor (Ab01aAudioProcessor& p)
 	: AudioProcessorEditor(&p),
     audioProcessor(p),
     adsr("ENV", audioProcessor.apvts, "ATTACK", "DECAY", "SUSTAIN", "RELEASE"),
-    osc(audioProcessor.apvts,
-    "WAVETYPE")
+    osc(audioProcessor.apvts, "WAVETYPE"),
+    sourceMixer(audioProcessor.apvts, "Square", "Saw", "SubOsc", "Noise")
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (400, 300);
+    setSize (600, 300);
 
     // ADSR
 	addAndMakeVisible(adsr);
 
 	addAndMakeVisible(osc);
+
+	addAndMakeVisible(sourceMixer);
 }
 
 Ab01aAudioProcessorEditor::~Ab01aAudioProcessorEditor()
@@ -44,4 +46,5 @@ void Ab01aAudioProcessorEditor::resized()
     adsr.setBounds(getWidth()/2, 0, getWidth()/2, getHeight()-50);
 
     osc.setBounds(10, 10, 100, 30);
+	sourceMixer.setBounds(10, 10, getWidth()/2, getHeight()-50);
 }

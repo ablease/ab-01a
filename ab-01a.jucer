@@ -23,6 +23,10 @@
         <FILE id="xBFbpF" name="OscData.h" compile="0" resource="0" file="Source/Data/OscData.h"/>
       </GROUP>
       <GROUP id="{B169CFB8-986E-3749-599D-D2BBCF64636E}" name="UI">
+        <FILE id="QffVU3" name="SourceMixerComponent.cpp" compile="1" resource="0"
+              file="Source/UI/SourceMixerComponent.cpp"/>
+        <FILE id="WQeLfG" name="SourceMixerComponent.h" compile="0" resource="0"
+              file="Source/UI/SourceMixerComponent.h"/>
         <FILE id="DlvHxp" name="OscComponent.cpp" compile="1" resource="0"
               file="Source/UI/OscComponent.cpp"/>
         <FILE id="wsNrs5" name="OscComponent.h" compile="0" resource="0" file="Source/UI/OscComponent.h"/>
